@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Rest API Widgets
-Version: 0.1-alpha
-Description: Simple Useful Widgets Using WP REST API.
+Version: 0.1
+Description: Simple Widgets Using WP REST API.
 Author: hideokamoto
-Author URI: YOUR SITE HERE
-Plugin URI: PLUGIN SITE HERE
+Author URI: https://profiles.wordpress.org/hideokamoto
+Plugin URI: https://github.com/hideokamoto/rest-api-widget
 Text Domain: rest-api-widgets
 Domain Path: /languages
 */
