@@ -4,8 +4,8 @@ class Rest_Comment_Form_Widget extends WP_Widget {
 	function __construct() {
 		parent::__construct(
 			'Rest_Comment_Form_Widget',
-			__( 'REST Comment Form Widget', 'text_domain' ),
-			array( 'description' => __( 'Comment Form Widget Using WP REST API', 'text_domain' ), )
+			__( 'REST Comment Form Widget', 'rest-api-widgets' ),
+			array( 'description' => __( 'Comment Form Widget Using WP REST API', 'rest-api-widgets' ), )
 		);
 	}
 
@@ -23,12 +23,12 @@ class Rest_Comment_Form_Widget extends WP_Widget {
 				$html .= $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
 			}
 			$api_url = esc_url( home_url( '/' ) ). 'wp-json/wp/v2/comments';
-			$author  = __( 'NAME:', 'text_domain' );
-			$mailaddress = __( 'MAIL:', 'text_domain' );
-			$content  = __( 'COMMENTS:', 'text_domain' );
-			$send_btn = __( 'SEND', 'text_domain' );
-			$success_text = __( 'Success! Reload now.', 'text_domain' );
-			$fail_text = __( 'Fail :(', 'text_domain' );
+			$author  = __( 'NAME:', 'rest-api-widgets' );
+			$mailaddress = __( 'MAIL:', 'rest-api-widgets' );
+			$content  = __( 'COMMENTS:', 'rest-api-widgets' );
+			$send_btn = __( 'SEND', 'rest-api-widgets' );
+			$success_text = __( 'Success! Reload now.', 'rest-api-widgets' );
+			$fail_text = __( 'Fail :(', 'rest-api-widgets' );
 
 			$html .= "<form action={$api_url} method='post' id='rest-api-widgets-comment'>";
 			$html .= '<dl>';
@@ -47,7 +47,7 @@ class Rest_Comment_Form_Widget extends WP_Widget {
 	}
 
 	public function form( $instance ) {
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'REST API Comment Widget', 'text_domain' );
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'REST API Comment Widget', 'rest-api-widgets' );
 		?>
 		<p>
 		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Widget Title:' ); ?></label>
