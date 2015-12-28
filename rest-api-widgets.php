@@ -9,13 +9,15 @@ Plugin URI: PLUGIN SITE HERE
 Text Domain: rest-api-widgets
 Domain Path: /languages
 */
-require_once( dirname( __FILE__ ).'/includes/comment-widget.php' );
+require_once( dirname( __FILE__ ).'/includes/class/class.commentform.php' );
+
+
 function register_rest_comment_widget() {
-    register_widget( 'Rest_Comment_Widget' );
+    register_widget( 'Rest_Comment_Form_Widget' );
 }
 add_action( 'widgets_init', 'register_rest_comment_widget' );
 
-add_action( 'wp_enqueue_scripts', 'rest_api_widgets_scripts' );
 function rest_api_widgets_scripts() {
-	wp_enqueue_script( 'script-name', plugin_dir_url( __FILE__ ).'/includes/comment-widget.js', array(), '1.0.0', true );
+	wp_enqueue_script( 'rest-api-widgets', plugin_dir_url( __FILE__ ).'/includes/js/common.js', array(), '1.0.0', true );
 }
+add_action( 'wp_enqueue_scripts', 'rest_api_widgets_scripts' );
