@@ -7,10 +7,10 @@
 				data: $(this).serializeArray(),
 				dataType: 'json'
 		}).done(function(json){
-			alert('投稿に成功したのでリロードします');
+			alert($(':hidden[name="success_text"]').val());
 			location.reload();
 		}).fail(function(json){
-			alert('fail');
+			alert($(':hidden[name="fail_text"]').val());
 		});
 	});
 })(jQuery);
