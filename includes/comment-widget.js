@@ -1,5 +1,5 @@
 (function($) {
-	$('#json-comment').on('submit', function(event) {
+	$('#rest-api-widgets-comment').on('submit', function(event) {
 		event.preventDefault();
 		$.ajax({
 				type: 'POST',
@@ -10,7 +10,7 @@
 			alert('投稿に成功したのでリロードします');
 			location.reload();
 		}).fail(function(json){
-			$('.ajax').append("読み込みませんでした。");
+			alert('fail');
 		});
 	});
 })(jQuery);

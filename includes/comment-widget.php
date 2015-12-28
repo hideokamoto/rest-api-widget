@@ -1,26 +1,23 @@
 <?php
-// Foo_Widget ウィジェットを登録
-function register_foo_widget() {
-    register_widget( 'Foo_Widget' );
+// Rest_Comment_Widget ウィジェットを登録
+function register_rest_comment_widget() {
+    register_widget( 'Rest_Comment_Widget' );
 }
-add_action( 'widgets_init', 'register_foo_widget' );
-add_action( 'wp_enqueue_scripts', 'theme_name_scripts' );
-function theme_name_scripts() {
-	wp_enqueue_script( 'script-name', plugin_dir_url( __FILE__ ).'/comment-widget.js', array(), '1.0.0', true );
-}
+add_action( 'widgets_init', 'register_rest_comment_widget' );
+
 /**
- * Adds Foo_Widget widget.
+ * Adds Rest_Comment_Widget widget.
  */
-class Foo_Widget extends WP_Widget {
+class Rest_Comment_Widget extends WP_Widget {
 
 	/**
 	 * WordPress でウィジェットを登録
 	 */
 	function __construct() {
 		parent::__construct(
-			'foo_widget', // Base ID
-			__( 'ウィジェットのタイトル', 'text_domain' ), // Name
-			array( 'description' => __( 'サンプルのウィジェット「Foo Widget」です。', 'text_domain' ), ) // Args
+			'Rest_Comment_Widget', // Base ID
+			__( 'REST Comment Form Widget', 'text_domain' ), // Name
+			array( 'description' => __( 'Comment Form Widget Using WP REST API', 'text_domain' ), ) // Args
 		);
 	}
 
@@ -37,32 +34,29 @@ class Foo_Widget extends WP_Widget {
 			return;
 		}
 
-		$html = $args['before_widget'];
-		if ( ! empty( $instance['title'] ) ) {
-			$html .= $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
-		}
-
 		$the_id = get_the_ID();
-		if ( comments_open( $the_id ) ) {
+		if ( ! comments_open( $the_id ) ) {
+			return;
+		} else {
+			$html = $args['before_widget'];
+			if ( ! empty( $instance['title'] ) ) {
+				$html .= $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
+			}
+			$api_url = esc_url( home_url( '/' ) ). 'wp-json/wp/v2/comments';
+			$author  = __( 'NAME:', 'text_domain' );
+			$mailaddress = __( 'MAIL:', 'text_domain' );
+			$content  = __( 'COMMENTS:', 'text_domain' );
+			$send_btn = __( 'SEND', 'text_domain' );
 
-			$api_url ='http://rest-api.dev/wp-json/wp/v2/comments';
-			$author  = __( '名前：', 'text_domain' );
-			$mailaddress = __( 'メールアドレス：', 'text_domain' );
-			$content  = __( 'コメント：', 'text_domain' );
-			$send_btn = __( '送信', 'text_domain' );
-
-			$html .= "<form action={$api_url} method='post' id='json-comment'>";
+			$html .= "<form action={$api_url} method='post' id='rest-api-widgets-comment'>";
 			$html .= '<dl>';
 			$html .= "<dt>{$author}</dt><dd><input name='author_name' value=''></dd>";
 			$html .= "<dt>{$mailaddress}</dt><dd><input name='author_email' value=''></dd>";
 			$html .= "<dt>{$content}</dt><dd><textarea name='content' id=' cols='30' rows='10'></textarea></dd>";
 			$html .= '</dl>';
-			$html .= "<input type='hidden' name='post' value='{$the_id}'></label>";
+			$html .= "<input type='hidden' name='post' value='{$the_id}'>";
 			$html .= "<button>{$send_btn}</button>";
 			$html .= '</form>';
-
-		} else {
-			$html .= __( 'この記事のコメント欄は閉じられています。', 'text_domain' );
 		}
 
 		echo $html. $args['after_widget'];
