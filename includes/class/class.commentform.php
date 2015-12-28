@@ -1,9 +1,9 @@
 <?php
-class Rest_Comment_Widget extends WP_Widget {
+class Rest_Comment_Form_Widget extends WP_Widget {
 
 	function __construct() {
 		parent::__construct(
-			'Rest_Comment_Widget',
+			'Rest_Comment_Form_Widget',
 			__( 'REST Comment Form Widget', 'text_domain' ),
 			array( 'description' => __( 'Comment Form Widget Using WP REST API', 'text_domain' ), )
 		);
