@@ -1,34 +1,19 @@
 <?php
-// Rest_Comment_Widget ウィジェットを登録
 function register_rest_comment_widget() {
     register_widget( 'Rest_Comment_Widget' );
 }
 add_action( 'widgets_init', 'register_rest_comment_widget' );
 
-/**
- * Adds Rest_Comment_Widget widget.
- */
 class Rest_Comment_Widget extends WP_Widget {
 
-	/**
-	 * WordPress でウィジェットを登録
-	 */
 	function __construct() {
 		parent::__construct(
-			'Rest_Comment_Widget', // Base ID
-			__( 'REST Comment Form Widget', 'text_domain' ), // Name
-			array( 'description' => __( 'Comment Form Widget Using WP REST API', 'text_domain' ), ) // Args
+			'Rest_Comment_Widget',
+			__( 'REST Comment Form Widget', 'text_domain' ),
+			array( 'description' => __( 'Comment Form Widget Using WP REST API', 'text_domain' ), ) 
 		);
 	}
 
-	/**
-	 * ウィジェットのフロントエンド表示
-	 *
-	 * @see WP_Widget::widget()
-	 *
-	 * @param array $args     ウィジェットの引数
-	 * @param array $instance データベースの保存値
-	 */
 	public function widget( $args, $instance ) {
 		if ( ! is_singular() ) {
 			return;
@@ -66,13 +51,6 @@ class Rest_Comment_Widget extends WP_Widget {
 		echo $html. $args['after_widget'];
 	}
 
-	/**
-	 * バックエンドのウィジェットフォーム
-	 *
-	 * @see WP_Widget::form()
-	 *
-	 * @param array $instance データベースからの前回保存された値
-	 */
 	public function form( $instance ) {
 		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'REST API Comment Widget', 'text_domain' );
 		?>
@@ -83,16 +61,6 @@ class Rest_Comment_Widget extends WP_Widget {
 		<?php
 	}
 
-	/**
-	 * ウィジェットフォームの値を保存用にサニタイズ
-	 *
-	 * @see WP_Widget::update()
-	 *
-	 * @param array $new_instance 保存用に送信された値
-	 * @param array $old_instance データベースからの以前保存された値
-	 *
-	 * @return array 保存される更新された安全な値
-	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
 		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
