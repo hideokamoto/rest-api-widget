@@ -1,16 +1,11 @@
 <?php
-function register_rest_comment_widget() {
-    register_widget( 'Rest_Comment_Widget' );
-}
-add_action( 'widgets_init', 'register_rest_comment_widget' );
-
 class Rest_Comment_Widget extends WP_Widget {
 
 	function __construct() {
 		parent::__construct(
 			'Rest_Comment_Widget',
 			__( 'REST Comment Form Widget', 'text_domain' ),
-			array( 'description' => __( 'Comment Form Widget Using WP REST API', 'text_domain' ), ) 
+			array( 'description' => __( 'Comment Form Widget Using WP REST API', 'text_domain' ), )
 		);
 	}
 
