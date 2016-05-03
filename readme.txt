@@ -1,4 +1,5 @@
 === Rest API Widgets ===
+Contributors: hideokamoto
 Tags: wp-api,widget
 Requires at least: 4.3.1
 Tested up to: 4.3.1
